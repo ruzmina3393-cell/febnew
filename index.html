@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💕</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    color: white;
+    text-align: center;
+}
+
+.container {
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.nickname {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.letter {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    margin: 15px auto;
+    border-radius: 20px;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+}
+
+.footer {
+    margin-top: 40px;
+    font-size: 1.1rem;
+}
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: #ff4b6e;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="receiver">My Love 💕</h1>
+    <div class="nickname" id="nickname"></div>
+
+    <div class="letter" id="letter1"></div>
+    <div class="letter" id="letter2"></div>
+    <div class="letter" id="letter3"></div>
+
+    <div class="footer" id="sender"></div>
+
+    <button onclick="playMusic()">Play Music 🎵</button>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("receiver").innerText =
+    params.get("receiver") || "My Valentine 💖";
+
+document.getElementById("nickname").innerText =
+    params.get("nickname") || "";
+
+document.getElementById("letter1").innerText =
+    params.get("letter1") || "";
+
+document.getElementById("letter2").innerText =
+    params.get("letter2") || "";
+
+document.getElementById("letter3").innerText =
+    params.get("letter3") || "";
+
+document.getElementById("sender").innerText =
+    "With Love, " + (params.get("sender") || "Someone Special 💕");
+
+function playMusic() {
+    document.getElementById("bgMusic").play();
+}
+</script>
+
+</body>
+</html>
