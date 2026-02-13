@@ -43,15 +43,11 @@ h1 {
     margin-top: 40px;
     font-size: 1.1rem;
 }
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+
+select {
+    padding: 8px;
+    border-radius: 10px;
     border: none;
-    border-radius: 20px;
-    background: white;
-    color: #ff4b6e;
-    font-weight: bold;
-    cursor: pointer;
 }
 </style>
 </head>
@@ -68,12 +64,23 @@ button {
 
     <div class="footer" id="sender"></div>
 
-    <button onclick="playMusic()">Play Music 🎵</button>
-</div>
+    <!-- 🎵 PLAYLIST SECTION -->
+    <h2 style="margin-top:40px;">Our Playlist 🎶</h2>
 
-<audio id="bgMusic" loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
+    <audio id="audioPlayer" controls style="margin-top:15px;">
+        <source id="audioSource" src="song1.mp3" type="audio/mpeg">
+    </audio>
+
+    <br><br>
+
+    <select onchange="changeSong(this.value)">
+        <option value="Akkam_Pakkam.mp3">Song 1 💕</option>
+        <option value="Annal_Mele_Panithuli.mp3">Song 2 💖</option>
+        <option value="Unnodu_Vazhatha.mp3">Song 3 🫶</option>
+        <option value="Manam_Virumbuthe.mp3">Song 4 🎵</option>
+    </select>
+
+</div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -96,8 +103,13 @@ document.getElementById("letter3").innerText =
 document.getElementById("sender").innerText =
     "With Love, " + (params.get("sender") || "Someone Special 💕");
 
-function playMusic() {
-    document.getElementById("bgMusic").play();
+function changeSong(songFile) {
+    const player = document.getElementById("audioPlayer");
+    const source = document.getElementById("audioSource");
+
+    source.src = songFile;
+    player.load();
+    player.play();
 }
 </script>
 
