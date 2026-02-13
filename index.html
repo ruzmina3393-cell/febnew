@@ -1,117 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine 💕</title>
+<title>Forever Us ❤️</title>
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
-    color: white;
-    text-align: center;
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+text-align:center;
+overflow-x:hidden;
 }
 
-.container {
-    padding: 40px 20px;
+.section{
+display:none;
+padding:40px 20px;
+min-height:100vh;
+animation:fade 0.8s ease-in-out;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+.active{
+display:block;
 }
 
-.nickname {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-.letter {
-    background: rgba(255,255,255,0.15);
-    padding: 20px;
-    margin: 15px auto;
-    border-radius: 20px;
-    max-width: 600px;
-    backdrop-filter: blur(10px);
+button{
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4b6e;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
 }
 
-.footer {
-    margin-top: 40px;
-    font-size: 1.1rem;
+button:hover{
+transform:scale(1.1);
 }
 
-select {
-    padding: 8px;
-    border-radius: 10px;
-    border: none;
+.card{
+background:rgba(255,255,255,0.2);
+padding:20px;
+margin:15px auto;
+max-width:600px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+}
+
+/* Popup */
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+color:#ff4b6e;
+padding:30px;
+border-radius:20px;
+z-index:1000;
+}
+
+.overlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+}
+
+#noBtn{
+position:absolute;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1 id="receiver">My Love 💕</h1>
-    <div class="nickname" id="nickname"></div>
-
-    <div class="letter" id="letter1"></div>
-    <div class="letter" id="letter2"></div>
-    <div class="letter" id="letter3"></div>
-
-    <div class="footer" id="sender"></div>
-
-    <!-- 🎵 PLAYLIST SECTION -->
-    <h2 style="margin-top:40px;">Our Playlist 🎶</h2>
-
-    <audio id="audioPlayer" controls style="margin-top:15px;">
-        <source id="audioSource" src="song1.mp3" type="audio/mpeg">
-    </audio>
-
-    <br><br>
-
-    <select onchange="changeSong(this.value)">
-        <option value="Akkam_Pakkam.mp3">Song 1 💕</option>
-        <option value="Annal_Mele_Panithuli.mp3">Song 2 💖</option>
-        <option value="Unnodu_Vazhatha.mp3">Song 3 🫶</option>
-        <option value="Manam_Virumbuthe.mp3">Song 4 🎵</option>
-    </select>
-
+<!-- LOGIN -->
+<div class="section active" id="login">
+<h1>Enter Secret Password 💕</h1>
+<input type="password" id="pass" placeholder="Enter password">
+<br>
+<button onclick="checkPass()">Unlock ❤️</button>
 </div>
 
+<!-- HOME -->
+<div class="section" id="home">
+<h1 id="typing"></h1>
+
+<p>We have been together for:</p>
+<h2 id="countdown"></h2>
+
+<button onclick="showSection('letters')">Love Letters 💌</button>
+<button onclick="showSection('gallery')">Photo Gallery 📸</button>
+<button onclick="showSection('proposal')">Special Question 💍</button>
+<button onclick="showSection('playlist')">Our Playlist 🎵</button>
+</div>
+
+<!-- LETTERS -->
+<div class="section" id="letters">
+<h1>My Love Letters 💌</h1>
+<div class="card">Nee en life la vandhadhu biggest blessing 💖</div>
+<div class="card">Un sirippu enakku daily happiness 😍</div>
+<div class="card">Forever un kooda dhaan irukanum ❤️</div>
+<button onclick="showSection('home')">Back ⬅</button>
+</div>
+
+<!-- GALLERY -->
+<div class="section" id="gallery">
+<h1>Our Memories 📸</h1>
+<img src="photo1.jpg" width="250">
+<img src="photo2.jpg" width="250">
+<img src="photo3.jpg" width="250">
+<br><br>
+<button onclick="showSection('home')">Back ⬅</button>
+</div>
+<!-- PLAYLIST -->
+<div class="section" id="playlist">
+<h1>Our Love Playlist 🎶</h1>
+
+<div class="card">
+<p>Akkam Pakkam 💕</p>
+<audio controls>
+<source src="Akkam_Pakkam.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="card">
+<p>Un Vizhigalil 😍</p>
+<audio controls>
+<source src="Un_Vizhigalil.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="card">
+<p>Annal Malae ❤️</p>
+<audio controls>
+<source src="Annal_Mele_Panithuli.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<br>
+<button onclick="showSection('home')">Back ⬅</button>
+</div>
+
+<!-- PROPOSAL -->
+<div class="section" id="proposal">
+<h1>Will You Stay With Me Forever? 💖</h1>
+
+<button onclick="sayYes()">YES 😍</button>
+<button id="noBtn" onmouseover="moveNo()">NO 😜</button>
+
+<br><br>
+<button onclick="showSection('home')">Back ⬅</button>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+<h2>You Said YESSS 😍💖</h2>
+<p>Forever & Always ❤️</p>
+</div>
+
+<canvas id="fireworks"></canvas>
+
 <script>
-const params = new URLSearchParams(window.location.search);
+function checkPass(){
+let p=document.getElementById("pass").value;
+if(p==="Retro"){
+showSection('home');
+startTyping();
+}else{
+alert("Wrong Password 😜");
+}
+}
 
-document.getElementById("receiver").innerText =
-    params.get("receiver") || "My Valentine 💖";
+function showSection(id){
+document.querySelectorAll('.section').forEach(sec=>{
+sec.classList.remove('active');
+});
+document.getElementById(id).classList.add('active');
+}
 
-document.getElementById("nickname").innerText =
-    params.get("nickname") || "";
+/* Typing */
+function startTyping(){
+let text="Welcome My Love ❤️";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,100);
+}
+}
+type();
+}
 
-document.getElementById("letter1").innerText =
-    params.get("letter1") || "";
+/* Countdown */
+let startDate=new Date("2026-02-14");
+setInterval(()=>{
+let now=new Date();
+let diff=now-startDate;
+let days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("countdown").innerHTML=days+" Days 💕";
+},1000);
 
-document.getElementById("letter2").innerText =
-    params.get("letter2") || "";
+/* Moving NO */
+function moveNo(){
+let btn=document.getElementById("noBtn");
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-100);
+btn.style.left=x+"px";
+btn.style.top=y+"px";
+}
 
-document.getElementById("letter3").innerText =
-    params.get("letter3") || "";
+/* YES + Fireworks */
+function sayYes(){
+document.getElementById("popup").style.display="block";
+document.getElementById("overlay").style.display="block";
+startFireworks();
+}
 
-document.getElementById("sender").innerText =
-    "With Love, " + (params.get("sender") || "Someone Special 💕");
+/* Fireworks */
+let canvas=document.getElementById("fireworks");
+let ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-function changeSong(songFile) {
-    const player = document.getElementById("audioPlayer");
-    const source = document.getElementById("audioSource");
+let particles=[];
 
-    source.src = songFile;
-    player.load();
-    player.play();
+function startFireworks(){
+for(let i=0;i<200;i++){
+particles.push({
+x:canvas.width/2,
+y:canvas.height/2,
+radius:Math.random()*3+2,
+color:`hsl(${Math.random()*360},100%,50%)`,
+speedX:(Math.random()-0.5)*6,
+speedY:(Math.random()-0.5)*6
+});
+}
+animate();
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach((p,i)=>{
+p.x+=p.speedX;
+p.y+=p.speedY;
+p.radius*=0.96;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+ctx.fillStyle=p.color;
+ctx.fill();
+
+if(p.radius<0.5){
+particles.splice(i,1);
+}
+});
+
+if(particles.length>0){
+requestAnimationFrame(animate);
+}
 }
 </script>
 
 </body>
 </html>
+
