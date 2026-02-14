@@ -9,11 +9,40 @@
 body{
 margin:0;
 font-family:'Segoe UI',sans-serif;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
+background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9a9e,#fad0c4);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
 color:white;
 text-align:center;
 overflow-x:hidden;
+position:relative;
 }
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+.bg-blur{
+position:fixed;
+width:400px;
+height:400px;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+filter:blur(100px);
+animation:floatBlob 12s infinite alternate ease-in-out;
+z-index:-1;
+}
+
+.blob1{top:10%; left:10%;}
+.blob2{bottom:10%; right:10%; animation-duration:15s;}
+.blob3{top:50%; left:50%; animation-duration:18s;}
+
+@keyframes floatBlob{
+0%{transform:translateY(0px) translateX(0px);}
+100%{transform:translateY(-50px) translateX(50px);}
+}
+
 
 .section{
 display:none;
@@ -94,6 +123,9 @@ pointer-events:none;
 </head>
 
 <body>
+<div class="bg-blur blob1"></div>
+<div class="bg-blur blob2"></div>
+<div class="bg-blur blob3"></div>
 
 <!-- LOGIN -->
 <div class="section active" id="login">
