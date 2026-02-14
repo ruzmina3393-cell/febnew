@@ -119,6 +119,26 @@ top:0;
 left:0;
 pointer-events:none;
 }
+.floating{
+position:fixed;
+bottom:-50px;
+font-size:24px;
+animation:floatUp 8s linear infinite;
+opacity:0.8;
+z-index:0;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(-110vh) rotate(360deg);
+opacity:0;
+}
+}
+
 </style>
 </head>
 
@@ -319,6 +339,28 @@ if(particles.length>0){
 requestAnimationFrame(animate);
 }
 }
+<script>
+function createFloating(){
+const element=document.createElement("div");
+element.classList.add("floating");
+
+const symbols=["💖","💕","💘","😘","💋","❤️"];
+element.innerHTML=symbols[Math.floor(Math.random()*symbols.length)];
+
+element.style.left=Math.random()*100+"vw";
+element.style.fontSize=(20+Math.random()*30)+"px";
+element.style.animationDuration=(5+Math.random()*5)+"s";
+
+document.body.appendChild(element);
+
+setTimeout(()=>{
+element.remove();
+},8000);
+}
+
+setInterval(createFloating,800);
+</script>
+
 </script>
 
 </body>
